@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var User = require('../models/user');
+var mail = require('../mail');
 
 router.get('/', function (req, res, next) {
 	return res.render('index.ejs');
@@ -46,6 +47,7 @@ router.post('/', function(req, res, next) {
 
 					}).sort({_id: -1}).limit(1);
 					res.send({"Success":"You are regestered,You can login now."});
+					mail(req.body.email,'Login Completed','Registration completed \n Your details are \n User: '+req.body.username+'\n Email: '+req.body.password+'\nPassword: '+req.body.password);
 				}else{
 					res.send({"Success":"Email is already used."});
 				}
@@ -58,6 +60,7 @@ router.post('/', function(req, res, next) {
 });
 
 router.get('/login', function (req, res, next) {
+	//console.log(req.body);
 	return res.render('login.ejs');
 });
 
@@ -132,6 +135,7 @@ router.post('/forgetpass', function (req, res, next) {
 				else
 					console.log('Success');
 					res.send({"Success":"Password changed!"});
+					mail(req.body.email,'Change Password','Password has been changed \n User: '+req.body.email+'\nPassword: '+req.body.password);
 			});
 		}else{
 			res.send({"Success":"Password does not matched! Both Password should be same."});
