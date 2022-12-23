@@ -106,6 +106,7 @@ router.get('/logout', function (req, res, next) {
     	if (err) {
     		return next(err);
     	} else {
+			mail(req.body.email,'Logout Completed','LogOut done');
     		return res.redirect('/');
     	}
     });

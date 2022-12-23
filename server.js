@@ -8,8 +8,7 @@ var mongoose = require('mongoose');
 var session = require('express-session');
 var MongoStore = require('connect-mongo')(session);
 
-
-mongoose.connect('mongodb://localhost:27017/login-app-db', {
+mongoose.connect('mongodb+srv://bunny:RAMEcPZO8u4XiE7S@cluster0.j9k2hub.mongodb.net/myDataBase?retryWrites=true&w=majority', {
   useNewUrlParser: true,
   useUnifiedTopology: true
 }, (err) => {
@@ -19,6 +18,17 @@ mongoose.connect('mongodb://localhost:27017/login-app-db', {
     console.log('Error in DB connection : ' + err);
   }
 });
+
+// mongoose.connect('mongodb://localhost:27017/login-app-db', {
+//   useNewUrlParser: true,
+//   useUnifiedTopology: true
+// }, (err) => {
+//   if (!err) {
+//     console.log('MongoDB Connection Succeeded.');
+//   } else {
+//     console.log('Error in DB connection : ' + err);
+//   }
+// });
 
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
